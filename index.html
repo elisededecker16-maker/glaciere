@@ -37,6 +37,7 @@
       <nav class="nav" aria-label="Hoofdnavigatie">
         <a href="#verhaal">Ons verhaal</a>
         <a href="#geuren">Geuren</a>
+        <a href="#geurtest">Geurtest</a>
         <a href="#voordelen">Nieuwsbrief</a>
       </nav>
       <a href="#inschrijven" class="btn btn-primary btn-sm">Inschrijven</a>
@@ -165,8 +166,73 @@
       </ul>
 
       <div class="wrap scents-foot reveal">
-        <p>Twijfel je nog? Na je inschrijving vindt onze geurtest jouw match in een minuutje.</p>
-        <a href="#inschrijven" class="btn btn-outline">Vind jouw geur</a>
+        <p>Twijfel je nog? Onze geurtest vindt jouw match in een minuutje.</p>
+        <a href="#geurtest" class="btn btn-outline">Doe de geurtest</a>
+      </div>
+    </section>
+
+
+    <!-- ============ Geurtest ============ -->
+    <section class="section quiz" id="geurtest" aria-labelledby="quiz-title">
+      <div class="wrap quiz-grid">
+        <div class="quiz-intro">
+          <p class="eyebrow reveal">De geurtest</p>
+          <h2 id="quiz-title" class="reveal">Welke geur ben jij?</h2>
+          <p class="lead reveal">Vier snelle vragen, één minuutje. Daarna weet je welke Glacière bij jouw mood past.</p>
+        </div>
+
+        <div class="quiz-card reveal" id="quiz" aria-live="polite">
+          <div class="quiz-progress" aria-hidden="true"><span id="quiz-bar"></span></div>
+          <p class="quiz-step" id="quiz-step">Vraag 1 van 4</p>
+
+          <div class="quiz-q" data-q="0">
+            <p class="quiz-question">Jouw perfecte vrije dag?</p>
+            <div class="quiz-options">
+              <button type="button" data-scent="iris">Lezen in een zacht zonnetje</button>
+              <button type="button" data-scent="sage">Wandelen in het groen</button>
+              <button type="button" data-scent="amber">Picknicken met vrienden</button>
+              <button type="button" data-scent="noir">Een avondje uit</button>
+            </div>
+          </div>
+          <div class="quiz-q" data-q="1" hidden>
+            <p class="quiz-question">Welke kleur draag je het liefst?</p>
+            <div class="quiz-options">
+              <button type="button" data-scent="iris">Zacht lila</button>
+              <button type="button" data-scent="sage">Mint of ijsblauw</button>
+              <button type="button" data-scent="amber">Perzik en goud</button>
+              <button type="button" data-scent="noir">Zwart of diep paars</button>
+            </div>
+          </div>
+          <div class="quiz-q" data-q="2" hidden>
+            <p class="quiz-question">Jouw moment van de dag?</p>
+            <div class="quiz-options">
+              <button type="button" data-scent="iris">Trage ochtend</button>
+              <button type="button" data-scent="sage">Frisse middag</button>
+              <button type="button" data-scent="amber">Golden hour</button>
+              <button type="button" data-scent="noir">Als de lichtjes aangaan</button>
+            </div>
+          </div>
+          <div class="quiz-q" data-q="3" hidden>
+            <p class="quiz-question">Hoe omschrijven je vrienden jou?</p>
+            <div class="quiz-options">
+              <button type="button" data-scent="iris">Zacht en lief</button>
+              <button type="button" data-scent="sage">Rustig en helder</button>
+              <button type="button" data-scent="amber">Warm en vrolijk</button>
+              <button type="button" data-scent="noir">Een tikje mysterieus</button>
+            </div>
+          </div>
+
+          <div class="quiz-result" id="quiz-result" hidden tabindex="-1">
+            <div class="quiz-result-img"><img id="quiz-img" src="20261101_Webpagina_geur-iris_v01.jpg" width="720" height="720" alt=""></div>
+            <div>
+              <p class="quiz-step">Jouw match</p>
+              <p class="quiz-name" id="quiz-name">Iris</p>
+              <p id="quiz-text"></p>
+              <a href="#inschrijven" class="btn btn-primary">Krijg 10 % op <span id="quiz-cta">Iris</span></a>
+              <button type="button" class="text-link quiz-restart" id="quiz-restart">Opnieuw doen</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

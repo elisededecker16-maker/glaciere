@@ -2,7 +2,8 @@
    1. Header wordt mat glas zodra je scrolt
    2. Blokken schuiven zacht in beeld
    3. Vaste inschrijfknop op smartphone
-   4. Inschrijfformulier → MailerLite (double opt-in), met bevestiging op de pagina */
+   4. Inschrijfformulier → MailerLite (double opt-in), met bevestiging op de pagina
+   5. Geurtest (v02.1 · 10/11/2026) */
 (function () {
   'use strict';
 
@@ -47,6 +48,65 @@
       update();
     }, { threshold: 0 });
     [hero, signup, footer].forEach(function (el) { if (el) so.observe(el); });
+  }
+
+  /* 5 · Geurtest: vier vragen, de geur met de meeste stemmen wint */
+  var quiz = document.getElementById('quiz');
+  if (quiz) {
+    var SCENTS = {
+      iris:  { name: 'Iris',  img: '20261101_Webpagina_geur-iris_v01.jpg',  alt: 'Flesje Iris in parelmoerkleurig water',
+               text: 'Zacht lila, puur jij. Je houdt van rust, zachte kleuren en kleine momenten die goed voelen.' },
+      sage:  { name: 'Sage',  img: '20261101_Webpagina_geur-sage_v01.jpg',  alt: 'Flesje Sage tegen een blauwe lucht met jacarandabloesem',
+               text: 'Koel, groen en helder. Jij bent de frisse wind in elke groep, altijd klaar voor iets nieuws.' },
+      amber: { name: 'Amber', img: '20261101_Webpagina_geur-amber_v01.jpg', alt: 'Flesje Amber op zachte perzikkleurige zijde',
+               text: 'Zonnig zoet op je huid. Jij brengt warmte mee, waar je ook komt.' },
+      noir:  { name: 'Noir',  img: '20261101_Webpagina_geur-noir_v01.jpg',  alt: 'Flesje Noir in een lila zee bij schemering',
+               text: 'Een tikje mysterie. Jij komt pas echt tot leven als de zon ondergaat.' }
+    };
+    var qs = quiz.querySelectorAll('.quiz-q');
+    var bar = document.getElementById('quiz-bar');
+    var stepLabel = document.getElementById('quiz-step');
+    var result = document.getElementById('quiz-result');
+    var answers = [];
+
+    var showQ = function (i) {
+      qs.forEach(function (q, k) { q.hidden = k !== i; });
+      bar.style.width = ((i + 1) / qs.length * 100) + '%';
+      stepLabel.textContent = 'Vraag ' + (i + 1) + ' van ' + qs.length;
+      stepLabel.hidden = false;
+    };
+
+    var showResult = function () {
+      var count = {};
+      answers.forEach(function (s) { count[s] = (count[s] || 0) + 1; });
+      // Gelijkspel? Dan telt je laatste antwoord.
+      var best = answers[answers.length - 1];
+      Object.keys(count).forEach(function (s) { if (count[s] > count[best]) best = s; });
+      var r = SCENTS[best];
+      document.getElementById('quiz-name').textContent = r.name;
+      document.getElementById('quiz-cta').textContent = r.name;
+      document.getElementById('quiz-text').textContent = r.text;
+      var img = document.getElementById('quiz-img');
+      img.src = r.img; img.alt = r.alt;
+      qs.forEach(function (q) { q.hidden = true; });
+      stepLabel.hidden = true;
+      bar.style.width = '100%';
+      result.hidden = false;
+      result.focus({ preventScroll: true });
+    };
+
+    qs.forEach(function (q, i) {
+      q.querySelectorAll('button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          answers[i] = b.getAttribute('data-scent');
+          if (i + 1 < qs.length) showQ(i + 1); else showResult();
+        });
+      });
+    });
+
+    document.getElementById('quiz-restart').addEventListener('click', function () {
+      answers = []; result.hidden = true; showQ(0);
+    });
   }
 
   /* 4 · MailerLite */
